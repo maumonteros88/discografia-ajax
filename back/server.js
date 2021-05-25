@@ -18,24 +18,26 @@ app.get("/discos", (req, res) => {
   let artistas = req.query.artista;
   let lanzamiento = req.query.lanzamiento;
   let array = [];
-  
+
   discos.discos.forEach((element) => {
     let artistaLowerCase = element.artista.toLowerCase();
     let tituloLowerCase = element.titulo.toLowerCase();
     let lanzamientoString = element.lanzamiento.toString();
 
-
     if (artistas && lanzamiento) {
-      if (
-        lanzamientoString.includes(lanzamiento.toString()) &&
-        artistaLowerCase.includes(artistas.toString().toLowerCase())
+      
+      if (artistaLowerCase.includes(artistas.toString().toLowerCase())===true&&
+        lanzamientoString.includes(lanzamiento.toString())===true
+        
       ) {
+        console.log('estoy en artistas y lanzamientos');
         return array.push(element);
       }
     }
-    
+
     if (artistas) {
       if (artistaLowerCase.includes(artistas.toString().toLowerCase())) {
+        console.log('estoy en artistas solo');
         return array.push(element);
       }
     }
@@ -44,12 +46,14 @@ app.get("/discos", (req, res) => {
         return array.push(element);
       }
     }
-    if (lanzamiento) {
-      if (lanzamientoString.includes(lanzamiento.toString())) {
+    if (lanzamiento ) {
+      if (lanzamientoString===lanzamiento) {
+        console.log('estoy en lanzamientos');
+        console.log(lanzamientoString);
+        console.log(lanzamiento);
         return array.push(element);
       }
     }
-
   });
   res.json(array);
 
