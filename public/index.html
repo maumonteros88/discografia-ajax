@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <title>Discografia</title>
+  </head>
+  <body class="row bg-dark justify-content-center p-5">
+    <div
+      class="
+        shadow-lg
+        p-3
+        mb-5
+        bg-dark
+        rounded
+        col-sm-4
+        justify-content-center
+        aling-items-center
+        p-4
+        d-flex
+        flex-column
+        border border-info
+        text-center
+      "
+    >
+      <h1 style="color: white">Consulta discografia</h1>
+
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Titulo"
+          id="titulo"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Artista"
+          name="artista"
+          id="artista"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Lanzamiento"
+          id="lanzamiento"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <input id="search" class="btn btn-primary" type="submit" value="Buscar" />
+    </div>
+    <div id="cards" class="row justify-content-center"></div>
+    <script src="scritp.js"></script>
+  </body>
+</html>
