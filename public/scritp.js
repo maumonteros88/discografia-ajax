@@ -5,18 +5,19 @@ const xhr = new XMLHttpRequest();
 
 search.addEventListener("click", () => {
   // @ts-ignore
-  const artista = document.getElementById("artista").value;
+  const artist = document.getElementById("artist").value;
   // @ts-ignore
-  const titulo = document.getElementById("titulo").value;
+  const titles = document.getElementById("titles").value;
   // @ts-ignore
-  const lanzamiento = document.getElementById("lanzamiento").value;
+  const launch = document.getElementById("launch").value;
 
   xhr.addEventListener("load", () => {
     cards.innerHTML = "";
     const response = JSON.parse(xhr.responseText);
 
     response.forEach((element) => {
-      cards.innerHTML += `<div class="card col-4" style="width: 18rem; margin-left:10px; margin-top: 10px">
+      cards.innerHTML += 
+       `<div class="card col-4" style="width: 18rem; margin-left:10px; margin-top: 10px">
         <img src="${element.tapa}" class="card-img-top" alt="...">
         <div class="card-body">
         <h5 class="card-title">${element.artista}</h5>
@@ -27,17 +28,17 @@ search.addEventListener("click", () => {
     });
   });
 
-  let filtros = "";
+  let filter = "";
 
-  if (artista) {
-    filtros += (filtros ? "&" : "") + `artista=${artista}`;
+  if (artist) {
+    filter += (filter ? "&" : "") + `artist=${artist}`;
   }
-  if (titulo) {
-    filtros += (filtros ? "&" : "") + `titulo=${titulo}`;
+  if (titles) {
+    filter += (filter ? "&" : "") + `titles=${titles}`;
   }
-  if (lanzamiento) {
-    filtros += (filtros ? "&" : "") + `lanzamiento=${lanzamiento}`;
+  if (launch) {
+    filter += (filter ? "&" : "") + `launch=${launch}`;
   }
-  xhr.open("GET", `/discos?${filtros}`);
+  xhr.open("GET", `/discos?${filter}`);
   xhr.send();
 });

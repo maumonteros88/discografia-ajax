@@ -1,5 +1,4 @@
 const express = require("express");
-const { parse } = require("path");
 const path = require("path");
 const app = express();
 const discos = require("./discos.json");
@@ -15,67 +14,67 @@ app.get("/", (req, res) => {
 });
 
 app.get("/discos", (req, res) => {
-  let titulos = req.query.titulo;
-  let artistas = req.query.artista;
-  let lanzamientos = req.query.lanzamiento;
-  let resultado = discos.discos;
+  let titles = req.query.titles;
+  let artist = req.query.artist;
+  let launch = req.query.launch;
+  let result = discos.discos;
 
-  if (artistas) {
-    resultado = resultado.filter((element) =>
+  if (artist) {
+    result = result.filter((element) =>
       element.artista
         .toLocaleLowerCase()
-        .includes(artistas.toString().toLocaleLowerCase())
+        .includes(artist.toString().toLocaleLowerCase())
     );
   }
 
-  if (titulos) {
-    resultado = resultado.filter((element) =>
+  if (titles) {
+    result = result.filter((element) =>
       element.titulo
         .toLocaleLowerCase()
-        .includes(titulos.toString().toLocaleLowerCase())
+        .includes(titles.toString().toLocaleLowerCase())
     );
   }
 
-  if (lanzamientos) {
-    resultado = resultado.filter(
-      (element) => element.lanzamiento.toString() === lanzamientos
+  if (launch) {
+    result = result.filter(
+      (element) => element.lanzamiento.toString() === launch
     );
   }
 
-  if (artistas && lanzamientos) {
-    resultado = resultado.filter(
+  if (artist && launch) {
+    result = result.filter(
       (element) =>
-        element.lanzamiento.toString() === lanzamientos &&
+        element.lanzamiento.toString() === launch &&
         element.artista
           .toLocaleLowerCase()
-          .includes(artistas.toString().toLocaleLowerCase())
+          .includes(artist.toString().toLocaleLowerCase())
     );
   }
 
-  if (titulos && lanzamientos) {
-    resultado = resultado.filter(
+  if (titles && launch) {
+    result = result.filter(
       (element) =>
-        element.lanzamiento.toString() === lanzamientos &&
+        element.lanzamiento.toString() === launch &&
         element.titulo
           .toLocaleLowerCase()
-          .includes(titulos.toString().toLocaleLowerCase())
+          .includes(titles.toString().toLocaleLowerCase())
     );
   }
 
-  if (titulos && lanzamientos && artistas) {
-    resultado = resultado.filter(
+  if (titles && launch && artist) {
+    result = result.filter(
       (element) =>
-        element.lanzamiento.toString() === lanzamientos &&
+        element.lanzamiento.toString() === launch &&
         element.titulo
           .toLocaleLowerCase()
-          .includes(titulos.toString().toLocaleLowerCase()) &&
+          .includes(titles.toString().toLocaleLowerCase()) &&
         element.artista
           .toLocaleLowerCase()
-          .includes(artistas.toString().toLocaleLowerCase())
+          .includes(artist.toString().toLocaleLowerCase())
     );
   }
 
-  res.json(resultado);
+  res.json(result);
 });
 
 app.listen(PORT, (err) => {
