@@ -39,6 +39,5 @@ search.addEventListener("click", () => {
     filtros += (filtros ? "&" : "") + `lanzamiento=${lanzamiento}`;
   }
   xhr.open("GET", `/discos?${filtros}`);
-  console.log(`/discos?${filtros}`);
   xhr.send();
 });
