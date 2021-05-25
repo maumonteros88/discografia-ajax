@@ -1,4 +1,5 @@
 const express = require("express");
+const { parse } = require("path");
 const path = require("path");
 const app = express();
 const discos = require("./discos.json");
@@ -14,52 +15,67 @@ app.get("/", (req, res) => {
 });
 
 app.get("/discos", (req, res) => {
-  let titulo = req.query.titulo;
+  let titulos = req.query.titulo;
   let artistas = req.query.artista;
-  let lanzamiento = req.query.lanzamiento;
-  let array = [];
+  let lanzamientos = req.query.lanzamiento;
+  let resultado = discos.discos;
 
-  discos.discos.forEach((element) => {
-    let artistaLowerCase = element.artista.toLowerCase();
-    let tituloLowerCase = element.titulo.toLowerCase();
-    let lanzamientoString = element.lanzamiento.toString();
+  if (artistas) {
+    resultado = resultado.filter((element) =>
+      element.artista
+        .toLocaleLowerCase()
+        .includes(artistas.toString().toLocaleLowerCase())
+    );
+  }
 
-    if (artistas && lanzamiento) {
-      
-      if (artistaLowerCase.includes(artistas.toString().toLowerCase())===true&&
-        lanzamientoString.includes(lanzamiento.toString())===true
-        
-      ) {
-        console.log('estoy en artistas y lanzamientos');
-        return array.push(element);
-      }
-    }
+  if (titulos) {
+    resultado = resultado.filter((element) =>
+      element.titulo
+        .toLocaleLowerCase()
+        .includes(titulos.toString().toLocaleLowerCase())
+    );
+  }
 
-    if (artistas) {
-      if (artistaLowerCase.includes(artistas.toString().toLowerCase())) {
-        console.log('estoy en artistas solo');
-        return array.push(element);
-      }
-    }
-    if (titulo) {
-      if (tituloLowerCase.includes(titulo.toString().toLocaleLowerCase())) {
-        return array.push(element);
-      }
-    }
-    if (lanzamiento ) {
-      if (lanzamientoString===lanzamiento) {
-        console.log('estoy en lanzamientos');
-        console.log(lanzamientoString);
-        console.log(lanzamiento);
-        return array.push(element);
-      }
-    }
-  });
-  res.json(array);
+  if (lanzamientos) {
+    resultado = resultado.filter(
+      (element) => element.lanzamiento.toString() === lanzamientos
+    );
+  }
 
-  // res.send(discos.discos);
+  if (artistas && lanzamientos) {
+    resultado = resultado.filter(
+      (element) =>
+        element.lanzamiento.toString() === lanzamientos &&
+        element.artista
+          .toLocaleLowerCase()
+          .includes(artistas.toString().toLocaleLowerCase())
+    );
+  }
 
-  // res.json(discos);
+  if (titulos && lanzamientos) {
+    resultado = resultado.filter(
+      (element) =>
+        element.lanzamiento.toString() === lanzamientos &&
+        element.titulo
+          .toLocaleLowerCase()
+          .includes(titulos.toString().toLocaleLowerCase())
+    );
+  }
+
+  if (titulos && lanzamientos && artistas) {
+    resultado = resultado.filter(
+      (element) =>
+        element.lanzamiento.toString() === lanzamientos &&
+        element.titulo
+          .toLocaleLowerCase()
+          .includes(titulos.toString().toLocaleLowerCase()) &&
+        element.artista
+          .toLocaleLowerCase()
+          .includes(artistas.toString().toLocaleLowerCase())
+    );
+  }
+
+  res.json(resultado);
 });
 
 app.listen(PORT, (err) => {

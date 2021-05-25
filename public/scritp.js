@@ -4,8 +4,11 @@ const search = document.getElementById("search");
 const xhr = new XMLHttpRequest();
 
 search.addEventListener("click", () => {
+  // @ts-ignore
   const artista = document.getElementById("artista").value;
+  // @ts-ignore
   const titulo = document.getElementById("titulo").value;
+  // @ts-ignore
   const lanzamiento = document.getElementById("lanzamiento").value;
 
   xhr.addEventListener("load", () => {
@@ -25,21 +28,28 @@ search.addEventListener("click", () => {
   });
 
   if (artista !== "") {
-     xhr.open("GET", `/discos?artista=${artista}`);
+    xhr.open("GET", `/discos?artista=${artista}`);
   }
 
   if (titulo !== "") {
-     xhr.open("GET", `/discos?titulo=${titulo}`);
+    xhr.open("GET", `/discos?titulo=${titulo}`);
   }
 
   if (lanzamiento !== "") {
     xhr.open("GET", `/discos?lanzamiento=${lanzamiento}`);
- }
+  }
 
- if (lanzamiento !== ""&& artista !=='') {
-  xhr.open("GET", `/discos?artista=${artista}&lanzamiento=${lanzamiento}`);
-}
+  if (lanzamiento !== "" && artista !== "") {
+    xhr.open("GET", `/discos?artista=${artista}&lanzamiento=${lanzamiento}`);
+  }
 
+  if (lanzamiento !== "" && titulo !== "") {
+    xhr.open("GET", `/discos?titulo=${titulo}&lanzamiento=${lanzamiento}`);
+  }
+
+
+  if (lanzamiento !== "" && titulo !== "" && artista!=="") {
+    xhr.open("GET", `/discos?artista=${artista}&lanzamiento=${lanzamiento}&titulo=${titulo}`);
+  }
   xhr.send();
 });
-
