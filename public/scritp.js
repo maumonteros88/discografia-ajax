@@ -27,29 +27,18 @@ search.addEventListener("click", () => {
     });
   });
 
-  if (artista !== "") {
-    xhr.open("GET", `/discos?artista=${artista}`);
-  }
+  let filtros = "";
 
-  if (titulo !== "") {
-    xhr.open("GET", `/discos?titulo=${titulo}`);
+  if (artista) {
+    filtros += (filtros ? "&" : "") + `artista=${artista}`;
   }
-
-  if (lanzamiento !== "") {
-    xhr.open("GET", `/discos?lanzamiento=${lanzamiento}`);
+  if (titulo) {
+    filtros += (filtros ? "&" : "") + `titulo=${titulo}`;
   }
-
-  if (lanzamiento !== "" && artista !== "") {
-    xhr.open("GET", `/discos?artista=${artista}&lanzamiento=${lanzamiento}`);
+  if (lanzamiento) {
+    filtros += (filtros ? "&" : "") + `lanzamiento=${lanzamiento}`;
   }
-
-  if (lanzamiento !== "" && titulo !== "") {
-    xhr.open("GET", `/discos?titulo=${titulo}&lanzamiento=${lanzamiento}`);
-  }
-
-
-  if (lanzamiento !== "" && titulo !== "" && artista!=="") {
-    xhr.open("GET", `/discos?artista=${artista}&lanzamiento=${lanzamiento}&titulo=${titulo}`);
-  }
+  xhr.open("GET", `/discos?${filtros}`);
+  console.log(`/discos?${filtros}`);
   xhr.send();
 });
